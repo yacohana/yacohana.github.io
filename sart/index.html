@@ -1,0 +1,198 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
+              "Hiragino Sans GB", "STXihei", serif;
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited{ color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+span.backtick {
+  border:1px solid #EAEAEA;
+  border-radius:3px;
+  background:#F8F8F8;
+  padding:0 3px 0 3px;
+}
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+p{
+margin:1em 0;
+}
+
+img{
+max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:normal;
+color:#111;
+line-height:1em;
+}
+h4,h5,h6{ font-weight: bold; }
+h1{ font-size:2.5em; }
+h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+h3{ font-size:1.5em; }
+h4{ font-size:1.2em; }
+h5{ font-size:1em; }
+h6{ font-size:0.9em; }
+
+blockquote{
+color:#666666;
+margin:0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+
+pre , code, kbd, samp { 
+  color: #000; 
+  font-family: monospace; 
+  font-size: 0.88em; 
+  border-radius:3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC; 
+}
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px 12px;}
+pre code { border: 0px !important; padding: 0;}
+code { padding: 0 3px 0 3px; }
+
+b, strong { font-weight: bold; }
+
+dfn { font-style: italic; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+body{font-size:16px;}
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:12pt; max-width:100%; outline:none;}
+  a, a:visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+</style><title>成績表Bookmarklet</title></head><body><h1 id="bookmarklet">成績照会の表を見やすくするBookmarklet</h1>
+<h2 id="_1">できること</h2>
+<p>これ↓が<br />
+<img alt="Before" src="/sart/assets/before.png" /><br />
+こう↓なります。<br />
+<img alt="After" src="/sart/assets/after2.png" /></p>
+<p>上のボタンでセメスター順/逆順にソートできます。<br />表のタイトル行をクリックでもソートでき、Shift+クリックで複数行ソートできます。<br />
+評価数・単位数の集計とGPAを表示できます。<br />
+単位数については全学・専門科目ごとにも表示します。</p>
+
+<h2 id="_2">使い方</h2>
+<p><strong>何かあっても責任は取れないので、各自の判断でご利用ください。</strong></p>
+<ol>
+<li>ブックマークバーが表示されていない場合、Chrome/IEは<code>Ctrl+Shift+B</code>、Firefoxは<code>Ctrl+B</code>で表示させる</li>
+<li><a href="javascript:(function(){var s=document.createElement('script');s.charset='UTF-8';s.src='https://yacohana.github.io/sart/sart.js';document.body.appendChild(s)})();">Bookmarklet</a> ←このリンクをブックマークバーにドラッグドロップ</li>
+<li>成績照会ページ(成績一覧の表が出ているページ)に移動</li>
+<li>さっき作ったブックマークを押す</li>
+</ol>
+<h2 id="q-a">その他</h2>
+<ul>
+<li>
+<p>成績情報を勝手に送られるの？</p>
+<p>いいえ。bookmarletでJavaScriptを読み込んで、ブラウザ上で処理しているのでこちらに成績データは送られていません。<br />
+不安であれば<a href="https://github.com/yacohana/sart" title="Github">ここ</a>からソースを確認するか、それでも不安であれば使うのを諦めてください。</p>
+</li>
+<li>
+<p>～～の環境で動かない/バグ etc...</p>
+<p>まともなブラウザで、JavaScriptがオンであることを確かめてください。それでも動かない場合は<a href="http://twitter.com/yacohana" title="yacohana(Twitter)">Twitter</a>にバグ報告貰えれば直すかもしれません。</p>
+</li>
+<li>
+<p>バージョンアップされない</p>
+<p>使い方中にあるBookmarkletは自動更新されていますが、下の更新履歴のものはバージョン固有ですのでご確認下さい。<br />また、キャッシュによりスクリプトが更新されない場合があるようですので、必要に応じてブラウザのキャッシュをクリアして下さい</p>
+</li>
+<li>
+<p>なんで作ったの？</p>
+<p>試験勉強の息抜きと、CoffeeScriptの勉強。</p>
+</li>
+<li>
+<p>使用ライブラリ</p>
+<p>表部分にがっつり<a href="http://tablesorter.com/docs/" title="Tablesoter">tablesoter</a>を利用させて頂きました。あとjQuery。</p>
+</li>
+<li>
+<p>GPA計算式は？</p>
+<p>GPA = (AA*4 + A*3 + B*2 + C*1) / (AA + A + B + C + D)</p>
+</li>
+</ul>
+<h2 id="update">更新履歴</h2>
+<ul>
+<li>
+<p>Ver 1.0.3(10/08) <a href="javascript:(function(){var s=document.createElement('script');s.charset='UTF-8';s.src='https://yacohana.github.io/sart/sart.1.0.3.js';document.body.appendChild(s)})();">Bookmarklet</a></p>
+<ul>
+<li>全学/専門ごとの単位数カウント機能を追加</li>
+<li>GPA計算機能を追加</li>
+</ul>
+</li>
+<li>
+<p>Ver 1.0.2(10/02) <a href="javascript:(function(){var s=document.createElement('script');s.charset='UTF-8';s.src='https://yacohana.github.io/sart/sart.1.0.2.js';document.body.appendChild(s)})();">Bookmarklet</a></p>
+<ul>
+<li>評価/単位数カウント機能を追加</li>
+</ul>
+</li>
+<li>
+<p>Ver 1.0.1(02/06) <a href="javascript:(function(){var s=document.createElement('script');s.charset='UTF-8';s.src='https://yacohana.github.io/sart/sart.1.0.1.js';document.body.appendChild(s)})();">Bookmarklet</a></p>
+<ul>
+<li>デフォルトでセメスター逆順になるように変更(みゅーる君からのpull-request、感謝)</li>
+<li>ついでにセメスター順/セメスター逆順並べ替えボタンつけた</li>
+</ul>
+</li>
+<li>
+<p>Ver 1.0.0(02/05) <a href="javascript:(function(){var s=document.createElement('script');s.charset='UTF-8';s.src='https://yacohana.github.io/sart/sart.1.0.0.js';document.body.appendChild(s)})();">Bookmarklet</a></p><ul><li>とりあえず公開</li></ul>
+</li>
+</li>
+
+<hr />
+<p><a href="https://github.com/yacohana/sart" title="Github">Source</a> (ライセンス:<a href="http://www.kmonos.net/nysl/" title="NYSL">NYSL 0.9982</a>)<br />
+<a href="http://twitter.com/yacohana" title="yacohana(Twitter)">yacohana(Twitter)</a></p></body></html>

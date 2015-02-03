@@ -3,14 +3,14 @@ jq$(function() {
   if (jq$('#res_table')[0]) {
     return;
   }
-  return jq$.getScript("https://yacohana.info/sart/assets/jquery.tablesorter.min.js", function() {
+  return jq$.getScript("https://yacohana.github.io/sart/assets/jquery.tablesorter.min.js", function() {
     var count_button, credits, css, data, flag, ga_credits, i, j, lgroup, ratings, res_table, res_tbody, res_tr, row, sgroup, show_button, sort_button, sort_rev_button, sp_credits, str, _i, _j, _k, _len, _len1, _len2, _ref;
     jq$("head").append('<link>');
     css = jq$("head").children(':last');
     css.attr({
       rel: 'stylesheet',
       type: 'text/css',
-      href: 'https://yacohana.info/sart/assets/style.css'
+      href: 'https://yacohana.github.io/sart/assets/style.css'
     });
     data = [];
     jq$('tr').each(function(i) {
