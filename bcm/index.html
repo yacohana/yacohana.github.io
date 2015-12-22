@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Beat Cru Makers</title>
+</head>
+<body>
+<form onsubmit="return false;" name="param">
+File: <input type="file" id="file"><br />
+Threshold: <input type="range" name="thresh" value="127" min="0" max="255"/><br />
+Kernel Size: <input type="range" name="kernel" value="3" min="1" max="10" /><br />
+<input type="submit" value="Convert" onclick="convert();">
+</form>
+converted image: <br />
+<canvas id="canvas"></canvas>
+<hr />
+original image: <br />
+<canvas id="canvas_org"></canvas>
+<script>
+function opening(w, h, k, ch_from, ch_to, im)
+{
+  for (var y = 0; y < h; y++) {
+    for (var x = 0; x < w; x++) {
+      im.data[(y * w + x) * 4 + ch_to] = 0;
+      for (var ky = Math.max(0, y - k); ky < Math.min(h, y + k); ky++) {
+        for (var kx = Math.max(0, x - k); kx < Math.min(w, x + k); kx++) {
+          im.data[(y * w + x) * 4 + ch_to] = Math.max(im.data[(y * w + x) * 4 + ch_to], im.data[(ky * w + kx) * 4 + ch_from]);
+        }
+      }
+    }
+  }
+}
+
+function closing(w, h, k, ch_from, ch_to, im) {
+  for (var y = 0; y < h; y++) {
+    for (var x = 0; x < w; x++) {
+      im.data[(y * w + x) * 4 + ch_to] = 255;
+      for (var ky = Math.max(0, y - k); ky < Math.min(h, y + k); ky++) {
+        for (var kx = Math.max(0, x - k); kx < Math.min(w, x + k); kx++) {
+          im.data[(y * w + x) * 4 + ch_to] = Math.min(im.data[(y * w + x) * 4 + ch_to], im.data[(ky * w + kx) * 4 + ch_from]);
+        }
+      }
+    }
+  }
+}
+
+onload = function() {
+  window.canvas_org = document.getElementById('canvas_org');
+  window.canvas = document.getElementById('canvas');
+  var ctx_org = window.canvas_org.getContext('2d');
+  window.img_org = new Image();
+  window.img_org.onload = function() {
+    window.canvas_org.width = window.img_org.width;
+    window.canvas_org.height = window.img_org.height;
+    window.canvas.width = window.img_org.width;
+    window.canvas.height = window.img_org.height;
+    ctx_org.drawImage(window.img_org, 0, 0, window.img_org.width, window.img_org.height);
+    window.canvas_org.style.width = window.img_org.width;
+    window.canvas_org.style.height = window.img_org.height;
+    window.canvas.style.width = window.img_org.width;
+    window.canvas.style.height = window.img_org.height;
+  };
+  file_input = document.getElementById("file");
+  file_input.onchange = function(evt) {
+    window.img_org.src = URL.createObjectURL(file_input.files[0]);
+  };
+};
+
+function convert()
+{
+  var ctx_org = window.canvas_org.getContext('2d');
+  var ctx = window.canvas.getContext('2d');
+  var thresh = Number(document.param.thresh.value);
+  kernel = Number(document.param.kernel.value);
+  var w = window.img_org.width;
+  var h = window.img_org.height;
+  im_org = ctx_org.getImageData(0, 0, w, h);
+  im = ctx.createImageData(w, h);
+  im.data.set(new Uint8ClampedArray(im_org.data));
+  for (var y = 0; y < h; y++) {
+    for (var x = 0; x < w; x++) {
+      var gray = (im_org.data[(y * w + x) * 4 + 0] + im_org.data[(y * w + x) * 4 + 1] + im_org.data[(y * w + x) * 4 + 2]) / 3;
+      var thed = gray > thresh ? 255 : 0;
+      im.data[(y * w + x) * 4 + 0] = thed;
+      im.data[(y * w + x) * 4 + 1] = thed;
+      im.data[(y * w + x) * 4 + 2] = thed;
+      im.data[(y * w + x) * 4 + 3] = 255;
+    }
+  }
+  
+  opening(w, h, kernel, 0, 1, im);
+  closing(w, h, kernel, 1, 0, im);
+  
+  for (var y = 0; y < h; y++) {
+    for (var x = 0; x < w; x++) {
+      im.data[(y * w + x) * 4 + 1] = im.data[(y * w + x) * 4 + 0];
+      im.data[(y * w + x) * 4 + 2] = im.data[(y * w + x) * 4 + 0];
+    }
+  }
+  ctx.putImageData(im, 0, 0);
+}
+</script>
+</body>
+</html>
